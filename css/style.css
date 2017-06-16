@@ -21,3 +21,7 @@ button:active {
 body{
   background-image: url('../images/subtle_white_mini_waves.png');
 }
+.jumbotron{
+  font-size: 40px;
+  color:#dad6;
+}

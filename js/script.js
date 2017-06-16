@@ -20,7 +20,7 @@ Game.prototype.startGame=function() {
   this.gameOver = false;
   this.currentPlayer = 0;
 }
-// ending the gae when value shown is 0
+// ending the game when value shown is 0
 Game.prototype.endTurn = function() {
   this.players[this.currentPlayer].gameScore+=this.players[this.currentPlayer].turnScore;
   this.players[this.currentPlayer].turnScore = 0;
@@ -63,6 +63,52 @@ player1.prototype.resultB=function(){
 }
 
 //user interface logic
+var newGame = new Game();
+
+function endTurn() {
+  newGame.endTurn();
+}
+
+function endGame() {
+  if(newGame.players[newGame.currentPlayer].gameScore + newGame.players[newGame.currentPlayer].turnScore >= 100) {
+    alert("GAME OVER: "+ newGame.players[newGame.currentPlayer].name +" won with a score of " + newGame.players[newGame.currentPlayer].gameScore + newGame.players[newGame.currentPlayer].turnScore + "!!");
+  } else {
+    alert("end game!");
+  }
+  newGame.endGame();
+  $(".players").empty();
+  $("#currentScore").text("Current Player Name");
+  $("#currentPlayer").text("Current Turn Score");
+  $("#hold").prop("disabled", false);
+  $("#roll").prop("disabled", false);
+  $("#playGame").prop("disabled", false);
+}
+
+function showScores() {
+  $("#listPlayerScores").empty();
+  newGame.players.forEach(function(player){
+    $("#listPlayerScores").append("<h3>"+player.name+": "+player.gameScore+"</h3>");
+  });
+}
+function startTurn () {
+  newGame.die.roll();
+  if(newGame.die.value === 1) {
+    newGame.players[newGame.currentPlayer].turnScore=0;
+  } else {
+    newGame.players[newGame.currentPlayer].turnScore+=newGame.die.value;
+  }
+  $("#currentScore").text(newGame.players[newGame.currentPlayer].turnScore);
+  $("#currentPlayer").text(newGame.players[newGame.currentPlayer].name + ": " + newGame.players[newGame.currentPlayer].gameScore);
+  showScores();
+  if(newGame.players[newGame.currentPlayer].turnScore===0) {
+    setTimeout(function() {
+      alert("Sorry, " + newGame.players[newGame.currentPlayer].name + " you rolled a 1. You get NOTHING!!");
+    },500);
+
+    endTurn();
+    startTurn();
+  }
+
 $(document).ready(function(){
   $("form#games").submit(function(event) {
     event.preventDefault();

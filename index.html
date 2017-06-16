@@ -18,22 +18,46 @@
       <h2> Select Player:</h2>
       <form id="games">
         <div class="row">
-          <div class="col-sm-4" id="player1">
-            <h3><strong>Player 1</strong></h3>
-            <button type="submit" class="player1">Roll Dice</button>
+          <div class="col-sm-4">
+            <h3 id="rules">Rules of Play:</h3>
+            <ul>
+              <li>A player rolls the dice</li>
+              <li>If the player gets "1" then their turn is over and they score 0.</li>
+              <li>If the player does not get "1" then the die amount is added to their turn score and they can roll again or hold.</li>
+              <li>When the player holds, their turn amount is added to their total score.</li>
+              <li>Repeat until one player has 100 points ore more.</li>
+            </ul>
+            <!--The rules of the game are explained-->
           </div>
-          <div class="col-sm-4" id="results">
-            <h3><strong>Results</strong></h3>
-            <div>
-
+          <div class="col-sm-4">
+            <div id="info">
+              <h3>Playing Area</h3>
+              <h4 id="currentPlayer">Current Player Name:</h4>
+              <h4 id="currentScore">Current Turn Score:</h4>
+              <!--This area show the current player and his score-->
             </div>
+            <p>
+              <button class="button btn btn-default pull-right" id="roll" disabled>Roll Again</button>
+              <button class="button btn btn-default pull-left" id="hold" disabled>Hold</button>
+            </p>
           </div>
-          <div class="col-sm-4" id="player2">
-            <h3><strong>Player 2</strong></h3>
-            <button type="submit" class="player2">Roll Dice</button>
+          <div class="col-sm-4">
+            <h3 id="players">Players</h3>
+            <ul id="listPlayers">
+              <!--the names of the players are inputted by the players and are displayed in a ul list-->
+            </ul>
+            <div id="listPlayerScores">
+              <!--the results of all the players-->
+            </div>
+            <h4>Add Player:</h4>
+            <input type="text" id="playerName"><br>
+            <button class="btn btn-default" id="addPlayer">Add Player</button>
+            <button class="btn btn-default" id="playGame" disabled>(re)Start Game</button>
           </div>
         </div>
-      </form>
+    </div>
+    </div>
+    </form>
     </div>
   </body>
 

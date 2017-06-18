@@ -1,27 +1,44 @@
-button {
-  padding: 15px 25px;
-  font-size: 24px;
+body {
+  background-color: #FcFcFc;
+}
+
+h1 {
+  background-color: #ffcc00;
+  color: black;
+  font-size: 4em;
+  line-height: 4em;
   text-align: center;
-  cursor: pointer;
-  outline: none;
-  color: #fff;
-  background-color: grey;
-  border: none;
-  border-radius: 15px;
-  box-shadow: 0 9px #999;
+  font-family: 'Pacifico', cursive;
+  border-radius: 25px;
 }
 
-button:hover {background-color: #3e8e41}
+h3 {
+  background-color: #ffcc00;
+  color: black;
+  border-radius: 10px;
+  padding: 3px;
+  padding-left: 15px;
+}
 
-button:active {
-  background-color: #3e8e41;
-  box-shadow: 0 5px #666;
-  transform: translateY(4px);
+#info h4 {
+  text-align: center;
 }
-body{
-  background-image: url('../images/subtle_white_mini_waves.png');
+
+#listPlayerScores h3 {
+  background-color: inherit;
 }
-.jumbotron{
-  font-size: 40px;
-  color:#dad6;
+
+button{
+  margin: 6px;
+}
+
+.btn-default {
+  background-color: #ffcc00;
+  color: black;
+}
+
+#displayDie {
+  border: solid 5px black;
+  display: block;
+  margin: auto;
 }

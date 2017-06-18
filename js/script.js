@@ -1,26 +1,27 @@
-//business logic
-// game constructor
+// Business Logic
+//Game constructors
 function Game() {
   this.gameOver = true;
   this.currentPlayer = 0;
   this.players=[];
-  this.dice = new Dice(6);
+  this.die = new Die(6);
 }
+
 Game.prototype.endGame = function() {
   this.gameOver = true;
   this.currentPlayer = 0;
   this.players=[];
 }
-//Adding players
+
 Game.prototype.addPlayer=function(player) {
   this.players.push(player);
 }
-//starting the game
+
 Game.prototype.startGame=function() {
   this.gameOver = false;
   this.currentPlayer = 0;
 }
-// ending the game when value shown is 0
+
 Game.prototype.endTurn = function() {
   this.players[this.currentPlayer].gameScore+=this.players[this.currentPlayer].turnScore;
   this.players[this.currentPlayer].turnScore = 0;
@@ -30,45 +31,32 @@ Game.prototype.endTurn = function() {
     this.currentPlayer = 0;
   }
 }
+// Player constructors
 function Player(name) {
   this.name=name;
   this.gameScore=0;
   this.turnScore=0;
 }
-
-function Dice(sides) {
+//  Dice constructors
+function Die(sides) {
   this.sides = sides;
   this.value = 1;
   this.roll();
 }
 
-Dice.prototype.roll=function(){
+Die.prototype.roll=function(){
     min = 1;
     max = this.sides;
     this.value = Math.floor(Math.random()*(max - min+1)) + min;
 }
-function player1(randomA){
-  this.randomA= player1;
-}
 
-player1.prototype.resultA=function(){
-  return this.randomA;
-}
-function player2(randomB){
-  this.randomB= player2;
-}
-
-player1.prototype.resultB=function(){
-  return this.randomB;
-}
-
-//user interface logic
+// User Interface  logic
 var newGame = new Game();
 
 function endTurn() {
   newGame.endTurn();
 }
-
+// Announces the winner of the match and ends the game
 function endGame() {
   if(newGame.players[newGame.currentPlayer].gameScore + newGame.players[newGame.currentPlayer].turnScore >= 100) {
     alert("GAME OVER: "+ newGame.players[newGame.currentPlayer].name +" won with a score of " + newGame.players[newGame.currentPlayer].gameScore + newGame.players[newGame.currentPlayer].turnScore + "!!");
@@ -76,7 +64,7 @@ function endGame() {
     alert("end game!");
   }
   newGame.endGame();
-  $(".players").empty();
+  $("#listPlayers").empty();
   $("#currentScore").text("Current Player Name");
   $("#currentPlayer").text("Current Turn Score");
   $("#hold").prop("disabled", false);
@@ -108,12 +96,42 @@ function startTurn () {
     endTurn();
     startTurn();
   }
+  if (newGame.players[newGame.currentPlayer].gameScore + newGame.players[newGame.currentPlayer].turnScore >= 100) {
+    setTimeout(endGame,500);
+  }
+}
 
-$(document).ready(function(){
-  $("form#games").submit(function(event) {
-    event.preventDefault();
-    var generatedRoll=Math.floor(Math.random() * 6) + 1;
-    console.log(generatedRoll);
-
+$("#addPlayer").click(function() {
+  var newPlayer = new Player($("#playerName").val());
+  $("#listPlayers").append("<li>" + newPlayer.name + "</li>");
+  newGame.addPlayer(newPlayer);
+  $("#playerName").val("");
+  if($("#playGame:disabled")) {
+    $("#playGame").prop("disabled", false);
+  }
 });
+
+$("#playGame").click(function(){
+  if(!newGame.gameOver) {
+    endGame();
+  }
+  newGame.startGame();
+  $("#listPlayers").hide();
+  if($("#roll:disabled")) {
+    $("#roll").prop("disabled", false);
+  }
+  if($("#hold:disabled")) {
+    $("#hold").prop("disabled", false);
+  }
+  showScores();
+  startTurn();
+});
+
+$("#roll").click(function(){
+  startTurn();
+});
+
+$("#hold").click(function(){
+  endTurn();
+  startTurn();
 });

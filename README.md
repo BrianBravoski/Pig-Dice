@@ -25,3 +25,4 @@ Output: new count is 0
 The game of pig dice is developed using HTML, CSS and Javascript
 # Link
 The game is accesible on github through this link
+https://BrianBravoski.github.io/Pig-Dice
